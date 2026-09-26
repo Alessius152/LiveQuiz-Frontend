@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:livequiz_frontend/riverpod/gameState.dart';
 
-class RoomEnterPhase extends StatefulWidget {
+class RoomEnterPhase extends ConsumerStatefulWidget {
   const RoomEnterPhase({super.key});
 
   @override
-  State<RoomEnterPhase> createState() => _RoomEnterPhaseState();
+  ConsumerState<RoomEnterPhase> createState() => _RoomEnterPhaseState();
 }
 
-class _RoomEnterPhaseState extends State<RoomEnterPhase> {
+class _RoomEnterPhaseState extends ConsumerState<RoomEnterPhase> {
   final _roomCodeController = TextEditingController();
   final _usernameController = TextEditingController();
 
@@ -39,9 +41,7 @@ class _RoomEnterPhaseState extends State<RoomEnterPhase> {
     final roomCode = _roomCodeController.text;
     final username = _usernameController.text.trim();
 
-    // TODO: chiamata al realtime service
-    debugPrint('Room: $roomCode');
-    debugPrint('Username: $username');
+    ref.read(gameProvider.notifier).joinRoom(code: roomCode, username: username);
   }
 
   @override

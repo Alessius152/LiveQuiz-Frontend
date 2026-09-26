@@ -3,12 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:livequiz_frontend/api/room.dart';
-import 'package:livequiz_frontend/config/apiClient.dart';
-import 'package:livequiz_frontend/config/localStore.dart';
 import 'package:livequiz_frontend/modals/quizPicker.dart';
 import 'package:livequiz_frontend/models/backendApi/quiz.dart';
 import 'package:livequiz_frontend/models/backendApi/room.dart';
-import 'package:livequiz_frontend/themes/purple.dart';
 import 'package:livequiz_frontend/widgets/createRoomButton.dart';
 import 'package:livequiz_frontend/widgets/startGameButton.dart';
 
