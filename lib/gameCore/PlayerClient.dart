@@ -1,6 +1,4 @@
 
-import 'dart:convert';
-
 import 'package:livequiz_frontend/config/localStore.dart';
 import 'package:livequiz_frontend/config/socketIoClient.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -16,6 +14,8 @@ class JoinData {
 class SessionTokens {
   String? answering;
   String? reconnection;
+
+  SessionTokens({this.answering, this.reconnection});
 }
 
 class PlayerClient {
@@ -33,10 +33,13 @@ class PlayerClient {
       sessionTokens.answering = data['sessionTokens']['answering'];
       sessionTokens.reconnection = data['sessionTokens']['reconnection'];
 
-      await LocalStore.setString("sessionTokens", jsonEncode({
-        'answering': sessionTokens.answering,
-        'reconnection': sessionTokens.reconnection,
-      }));
+      await LocalStore.addSessionTokensObject(
+        roomCode: joinData.room,
+        tokens: SessionTokens(
+          answering: sessionTokens.answering,
+          reconnection: sessionTokens.reconnection,
+        ),
+      );
 
       onJoined();
     });

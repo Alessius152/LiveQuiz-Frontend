@@ -15,8 +15,7 @@ Mutation<Response, RoomCreationRequestBody> createRoomMutation() {
         }
       );
 
-      await LocalStore.setString('hostToken', response.data['hostToken']); //TODO, devi mantenere hostToken per ogni stanza, se ne crei diverse.
-
+      await LocalStore.addHostToken(roomCode: response.data['code'], token: response.data['hostToken']);
       return response;
     },
   );

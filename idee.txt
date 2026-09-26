@@ -1,0 +1,33 @@
+
+qui scriverò alcune idee da sviluppare in futuro nell'applicazione
+
+[] per la pagina stanze attive:
+    leggere da un contesto globale che viene riempito quando le stanze vengono create
+    da li potrei accedere a una singola stanza e avviarla
+
+    Inoltre se io creo la stanza e chiudo l'app, le scaricherei a partire da tutti i token
+    firmati hmac che il server mi ha dato dopo averle create.
+
+    Approposito di token, il caricamento della sezione "stanza attive" si base sul fatto che
+    io abbia i token di avvio del quiz delle stanze create da me negli ultimi 5 minuti, perché
+    si, il token di start-game scade dopo 5 minuti, quindi di base devo chiedermi: all'avvio
+    dell'app posso anche decodificare i token e vedere se la scadenza è ancora nel futuro e,
+    eventualmente scartarli prima che arrivino al server?
+
+    La risposta è si, perché è la firma hmac è individuale dal payload che, essendo codificato in
+    base64, si può decodificare e leggere tutto il contenuto.
+
+[] per i token implementare uno store a insiemi:
+    per ora conservo nella chiave hostToken, l'hostToken della stanza creata in quel momento,
+    ma se accidentalmente ne creo due?
+
+    Il problema non è tanto questo, ma è il fatto che l'hostToken di una stanza, che potrei eventualmente
+    voler recuperare, possa essere rimpiazzato per via della logica di setString('hostToken', hostToken)
+    che non si preoccupa di identificare a quale stanza appartiene quel token.
+
+    Stesso concetto per i token di sessione, e cioè gli oggetti {recovery: string, answer: string}
+
+    è vero che l'app permette, umanamente, di visualizzare, e quindi partecipare, a una sola stanza, ma
+    il concetto da risolvere sta alla base dei dati: Se voglio mandare un evento per la stanza x e,
+    avendo il token, sono PIENAMENTE autorizzato, perché potrebbe accadere di non poterlo fare
+    semplicemente perché il token è stato sovrascritto da un'altro?
